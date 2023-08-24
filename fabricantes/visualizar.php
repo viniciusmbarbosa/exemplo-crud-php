@@ -1,3 +1,13 @@
+<?php
+require_once "../src/funcoes-fabricantes.php";
+
+/* Guardando o retorno/resultado da função lerFabricantes */
+$listaDeFabricantes = lerFabricantes($conexao);
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,11 +24,37 @@
         <a href="/fabricantes/visualizar.php">Home</a>
     </nav>
     </header>
-    <h1>Fabricantes | SELECT </h1>
-    <hr>
-    <h2>Lendo e carregando todos os fabricantes.</h2>
+    <div class="text-center">
+        <h1>Fabricantes | SELECT </h1>
+        <hr>
+        <h2>Lendo e carregando todos os fabricantes.</h2>
+        <p><a href="inserir.php">Inserir novo fabricante</a>
+    </div></p>
 
-    <p><a href="inserir.php">Inserir novo fabricante</a></p>
+    <div class="col-4 container">
+        <table class="table table-bordered table-striped table-hover">
+            <tr >
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Operações</th>
+            </tr>
+            <?php
+            foreach ($listaDeFabricantes as $listaDeFabricante){
+            ?>
+            <tbody>
+                <tr>
+        
+                    <td><?=$listaDeFabricante['id']?></td>
+                    <td><?=$listaDeFabricante['nome']?></td>
+                    <td>
+                        <a href="#">Editar</a>
+                        <a href="#">Excluir</a>
+                    </td>
+                    <?php } ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     
 </body>
 </html>
