@@ -12,6 +12,8 @@ if( isset($_POST['insert'])){
     // Chamar a função, passar os dados de conexão e o dados (do fabrincates) digitado no formulário.
     inserirFabricante($conexao, $nome);
     
+    /* Redirecionamento */
+    header("location:visualizar.php");
 }
 
 ?>

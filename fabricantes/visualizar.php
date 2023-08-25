@@ -3,6 +3,9 @@ require_once "../src/funcoes-fabricantes.php";
 
 /* Guardando o retorno/resultado da função lerFabricantes */
 $listaDeFabricantes = lerFabricantes($conexao);
+
+/* Contando quantos fabricantes temos na matriz $listaDoFabricante */
+$quantidade = count($listaDeFabricantes);
 ?>
 
 
@@ -38,10 +41,12 @@ $listaDeFabricantes = lerFabricantes($conexao);
                 <th>Nome</th>
                 <th>Operações</th>
             </tr>
+            <tbody>
+                <caption>Lista de fabricantes: <b><?=$quantidade?></b></caption>
             <?php
             foreach ($listaDeFabricantes as $listaDeFabricante){
             ?>
-            <tbody>
+            
                 <tr>
         
                     <td><?=$listaDeFabricante['id']?></td>
