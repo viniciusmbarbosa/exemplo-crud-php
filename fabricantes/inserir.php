@@ -1,14 +1,17 @@
 <?php
 /*  Verificando se o formulário/botão foi acionado */
 if( isset($_POST['insert'])){
-
+    require_once "../src/funcoes-fabricantes.php";
     //Capturando o valor digitado do nome e sanitizando
     $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
     
     // Pode ser assim também
     //$nome = filter_var($_POST['nome'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-    echo $nome;
+
+    // Chamar a função, passar os dados de conexão e o dados (do fabrincates) digitado no formulário.
+    inserirFabricante($conexao, $nome);
+    
 }
 
 ?>
