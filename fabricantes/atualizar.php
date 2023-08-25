@@ -7,6 +7,11 @@ $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 
 /* Chamando a função e recuperando os dados de um fabricante de acordo com o id passado. */
 $fabricante = lerUmFabricante($conexao, $id);
+if(isset($_POST['atualizar'])){
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    atualizarFabricante($conexao, $nome, $id);
+    header("location:visualizar.php");
+}
 ?>
 
 
@@ -27,7 +32,7 @@ $fabricante = lerUmFabricante($conexao, $id);
         
         <!-- Campo oculto usado apenas para restro no formulário do id do fabricante que está sendo visualizado. -->
         <input type="hidden" name="id" value="<?=$fabricante['id']?>">
-        
+
         <p class="col-3">
             <label for="nome" class="form-label">Nome:</label>
             <input value="<?=$fabricante['nome']?>" required class="form-control" type="text" name="nome" id="nome">
