@@ -43,11 +43,27 @@ function inserirFabricante(PDO $conexao, string $nomeDoFabricante){
     try {
         $consulta = $conexao->prepare($sql);
 
-        /* bindValue() -> pemirte binvular ovalor existente no parâmetro nomeado (:nome) à consulta que será executada. é necessário indicar qual é o parâmetro (:nome), de onde vem o valor ($nomeDoFabricante) e de que tipo ele é (PDO::PARA_STR) */
+        /* bindValue() -> pemirte vincular o valor existente no parâmetro nomeado (:nome) à consulta que será executada. é necessário indicar qual é o parâmetro (:nome), de onde vem o valor ($nomeDoFabricante) e de que tipo ele é (PDO::PARA_STR) */
         $consulta->bindValue(":nome", $nomeDoFabricante, pdo::PARAM_STR);
         $consulta->execute();
     } catch (Exception $erro) {
         die("Erro ao inserir: ".$erro->getMessage());
     }
 }
+
+// usada em fabricantes/atualizar.php
+function lerUmFabricante(PDO $conexao, int $idFabricante){
+    $sql = "SELECT * FROM fabricantes  WHERE id = :id";
+
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindValue(":nome", $idFabricante, PDO::PARAM_INT);
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+    } catch (Exception $erro) {
+        die("Erro ai carregaar:".$erro->getMessage());
+    }
+    return $resultado;
+
+} //fim lerUmFabricante
 ?>
