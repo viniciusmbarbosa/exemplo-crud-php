@@ -15,7 +15,7 @@ $banco = "vendas";
 try{
     // Instância/Objeto PDO para conexão
     $conexao = new PDO(
-        "mysql:host=$servidor;dbname=$banco;charset=utf8", 
+        "mysql:hot=$servidor;dbname=$banco;charset=utf8", 
         $usuario, $senha
     );
     
