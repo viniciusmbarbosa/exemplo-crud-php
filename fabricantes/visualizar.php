@@ -1,66 +1,66 @@
 <?php
+/* Importando as funções de manipulação de fabricantes */
 require_once "../src/funcoes-fabricantes.php";
-
 /* Guardando o retorno/resultado da função lerFabricantes */
 $listaDeFabricantes = lerFabricantes($conexao);
 
-/* Contando quantos fabricantes temos na matriz $listaDoFabricante */
+/* Contando quantos fabricantes temos na matriz $listaDeFabricantes */
 $quantidade = count($listaDeFabricantes);
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Fabricantes - Visualização</title>
 </head>
 <body>
-    <header>
-        <nav style="text-align:center">
-        <a href="/fabricantes/visualizar.php">Home</a>
-    </nav>
-    </header>
-    <div class="text-center">
-        <h1>Fabricantes | SELECT </h1>
-        <hr>
-        <h2>Lendo e carregando todos os fabricantes.</h2>
-        <p><a href="inserir.php">Inserir novo fabricante</a>
-    </div></p>
+    <h1>Fabricantes | SELECT - 
+        <a href="../index.php">Home</a>
+    </h1>
 
-    <div class="col-4 container">
-        <table class="table table-bordered table-striped table-hover">
-            <tr >
+    <hr>
+    <h2>Lendo e carregando todos os fabricantes.</h2>
+
+    <p><a href="inserir.php">
+        Inserir novo fabricante</a></p>
+
+    
+    <!-- Feedback/Mensagem para o usuário indicando que o 
+    processo deu certo. -->
+    <?php if(isset($_GET["status"]) && $_GET["status"] === "sucesso"){ ?>
+        <h2 style="color:blue">Fabricante atualizado com sucesso!</h2>
+    <?php } ?>
+
+    <table>
+        <caption>Lista de Fabricantes: <b><?=$quantidade?></b></caption>
+        <thead>
+            <tr>
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Operações</th>
             </tr>
-            <tbody>
-                <caption>Lista de fabricantes: <b><?=$quantidade?></b></caption>
-            <?php
-            foreach ($listaDeFabricantes as $listaDeFabricante){
-            ?>
-            
-                <tr>
-        
-                    <td><?=$listaDeFabricante['id']?></td>
-                    <td><?=$listaDeFabricante['nome']?></td>
-                    <td>
-                        <a href="atualizar.php?id=<?=$listaDeFabricante['id']?>">Editar </a>
-                        <a href="#">Excluir</a>
-                    </td>
-                    <?php } ?>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <hr>
-        <p><a href="visualizar.php">Voltar</a></p>
+        </thead>
+        <tbody>
+
+<?php foreach($listaDeFabricantes as $fabricante) { ?>
+            <tr>
+                <td> <?=$fabricante["id"]?>  </td>
+                <td> <?=$fabricante["nome"]?> </td>
+                <td>
+<!-- Link DINÂMICO
+A URL do href precisa de parâmetro com dados
+dinâmicos (no caso, o ID de cada fabricante) -->
+<a href="atualizar.php?id=<?=$fabricante["id"]?>">Editar</a>
+
+<a class="excluir" href="excluir.php?id=<?=$fabricante["id"]?>">Excluir</a>
+                </td>
+            </tr>
+<?php } ?>
+        </tbody>
+    </table>
+
+    <script src="../js/confirma-exclusao.js"></script>
+
 </body>
 </html>
