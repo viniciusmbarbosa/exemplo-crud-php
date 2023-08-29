@@ -1,5 +1,7 @@
 <?php
 require_once "../src/funcoes-produtos.php";
+require_once "../src/funcaoes-utilitarias.php";
+
 $listaDeProdutos = lerProdutos($conexao);
 ?>
 
@@ -43,7 +45,7 @@ $listaDeProdutos = lerProdutos($conexao);
             <?php foreach($listaDeProdutos as $produto) {  ?>
             <article class="produto">
                 <h3><?=$produto['nome']?></h3>
-                <p><b>Preço:</b><?=$produto["preco"]?>.... </p>
+                <p><b>Preço:</b><?=formaTarpreco($produto["preco"])?> </p>
                 <p><b>Quantidade:</b><?=$produto["quantidade"]?></p>
             </article>
             <?php } ?>
