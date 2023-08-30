@@ -1,10 +1,11 @@
 <?php
 require_once "../src/funcoes-produtos.php";
+require_once "../src/funcoes-fabricantes.php";
+$listadeFabricante = lerFabricantes($conexao);
 
 $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 
-$produto 
-
+$produto = lerUmProduto($conexao, $id)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,16 +23,17 @@ $produto
     <form action="" method="post">
         <p>
             <label for="nome">Nome</label>
-            <input type="text" name="nome" id="nome" required>
+            <input type="text" value="<?=$produto['nome'
+            ]?>" name="nome" id="nome" required>
         </p>
         <p>
             <label for="preco">Preço:</label>
-            <input type="number" min="10" max="1000" step="0.01" name="preco" id="preco" required>
+            <input type="number" value="<?=$produto['preco']?>" min="10" max="1000" step="0.01" name="preco" id="preco" required>
         </p>
 
         <p>
             <label for="quantidade">Quantidade:</label>
-            <input type="number" name="quantidade" min="1" max="100" id="quantidade" required>
+            <input type="number" value="<?=$produto['quantidade']?>" name="quantidade" min="1" max="100" id="quantidade" required>
         </p>
         <p>
             <label for="fabricanteid">Fabricante:</label>
@@ -39,11 +41,22 @@ $produto
             <select name="fabricanteid" id="fabricanteid">
                 <option value="fabricanteid"></option>
 
+                <?php foreach( $listadeFabricante as $fabricante){
+                    /* Lógica/ALgoritmo da seleção do fabricante
+                    Se a chave estrangeira for idêntica à chave primária, ou seja, se o id o fabricante do produto (Couluna fabricante_id da tabela produto)
+                    for igual ao id do fabricante (coluna id da tabela fabricantes) , então coloque o atributo "selected" no <option> */?>
+                <option <?php 
+                //chave estrangeira === chave primaria
+                if($produto["fabricante_id"] === $fabricante["id"]) echo " selected ";  ?>
+                 value="<?=$fabricante['id']?>">
+            <?=$fabricante['nome']?>
+            </option>
+                <?php } ?>
             </select>
         </p>
 
         <p><label for="descricao">Descrição:</label>
-            <textarea name="descricao" id="descricao" cols="30" rows="3"></textarea>
+            <textarea name="descricao" id="descricao" cols="30" rows="3"><?=$produto['descricao']?></textarea>
         </p>
         <button type="submit" name="atualizar">atualizar produto</button>
     </form>

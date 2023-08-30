@@ -64,10 +64,16 @@ function inserirProdutos(
 }
 
 
-function lerProduto(PDO $conexao):array {
-    $sql = "SELECT * FROM produto WHERE id = :id";
+function lerUmProduto(PDO $conexao, int $idProduto):array {
+    $sql = "SELECT * FROM produtos WHERE id = :id";
 
-    try{
-        
+    try {
+        $consulta = $conexao->prepare($sql);
+        $consulta->bindValue(":id", $idProduto, PDO::PARAM_INT);
+        $consulta->execute();
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    } catch (Exception $erro) {
+        die("Erro ao carregar dados:".$erro->getMessage());
     }
+    return $resultado;
 }
