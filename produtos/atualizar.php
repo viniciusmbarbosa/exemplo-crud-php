@@ -1,46 +1,22 @@
 <?php
-require_once "../src/funcoes-fabricantes.php";
 require_once "../src/funcoes-produtos.php";
 
-$listadeFabricante = lerFabricantes($conexao);
+$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 
-if (isset($_POST['inserir'])) {
-    $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
-    $preco = filter_input(
-        INPUT_POST,
-        "preco",
-        FILTER_SANITIZE_NUMBER_FLOAT,
-        FILTER_FLAG_ALLOW_FRACTION
-    );
+$produto 
 
-    $quantidade = filter_input(
-        INPUT_POST,
-        "quantidade",
-        FILTER_SANITIZE_NUMBER_INT
-    );
-
-    //Pegaremos o value, ou seja, o valor do id do fabricante
-    $fabricanteid = filter_input(INPUT_POST, "fabricanteid", FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $descricao = filter_input(INPUT_POST, "descricao", FILTER_SANITIZE_SPECIAL_CHARS);
-
-    inserirProdutos($conexao, $nome, $preco, $quantidade, $fabricanteid, $descricao);
-
-    header("location:visualizar.php");
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos - Inserção</title>
+    <title>Produtos atualização - </title>
 </head>
 
 <body>
-    <h1>Produtos | INSERT</h1>
+    <h1>Produtos | SELECT UPDATE</h1>
     <hr>
 
     <form action="" method="post">
@@ -63,16 +39,13 @@ if (isset($_POST['inserir'])) {
             <select name="fabricanteid" id="fabricanteid">
                 <option value="fabricanteid"></option>
 
-                <?php foreach ($listadeFabricante as $fabricante) {  ?>
-                    <option value="<?= $fabricante['id'] ?>"><?= $fabricante['nome'] ?></option>
-                <?php } ?>
             </select>
         </p>
 
         <p><label for="descricao">Descrição:</label>
             <textarea name="descricao" id="descricao" cols="30" rows="3"></textarea>
         </p>
-        <button type="submit" name="inserir">Inserir produto</button>
+        <button type="submit" name="atualizar">atualizar produto</button>
     </form>
     <hr>
     <p><a href="visualizar.php">Voltar</a></p>

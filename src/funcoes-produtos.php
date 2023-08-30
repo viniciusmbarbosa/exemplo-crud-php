@@ -29,3 +29,45 @@ function lerProdutos(PDO $conexao): array
 
     return $resultado;
 }
+
+function inserirProdutos(
+    PDO $conexao,
+    string  $nome,
+    float $preco,
+    int $quantidade,
+    int $fabricanteid,
+    string $descricao
+):void{
+
+    $sql = "INSERT INTO produtos(
+        nome, preco, quantidade, descricao, fabricante_id
+    ) VALUES(
+        :nome, :preco, :quantidade, :descricao, :fabricanteId
+    )";
+
+    try{
+       $consulta = $conexao->prepare($sql);
+       $consulta->bindValue(":nome", $nome, PDO::PARAM_STR); 
+
+       /* Ao trabalhar com valores "quebrados", para os parÂmetros nomeados. você deve usar a constante PARAM_STR. No momento, não há outra forma no PDO de lidar com valores deste tipo devido aos diferentes tipos de dados que cada Banco de Dados suporta. */
+       $consulta->bindValue(":preco", $preco, PDO::PARAM_STR);
+
+       $consulta->bindValue(":quantidade", $quantidade, PDO::PARAM_INT); 
+       $consulta->bindValue(":descricao", $descricao, PDO::PARAM_STR); 
+       $consulta->bindValue(":fabricanteId", $fabricanteid, PDO::PARAM_INT);
+
+       $consulta->execute();
+
+    }catch (Exception $erro){
+        die("Erro ao inserir: ".$erro ->getMessage());
+    }
+}
+
+
+function lerProduto(PDO $conexao):array {
+    $sql = "SELECT * FROM produto WHERE id = :id";
+
+    try{
+        
+    }
+}
