@@ -8,7 +8,7 @@ $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 $produto = lerUmProduto($conexao, $id);
 
 if(isset($_POST['atualizar'])){
-    if (isset($_POST['inserir'])) {
+  
         $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
         $preco = filter_input(
             INPUT_POST,
@@ -24,7 +24,7 @@ if(isset($_POST['atualizar'])){
         );
     
         //Pegaremos o value, ou seja, o valor do id do fabricante
-        $fabricanteid = filter_input(INPUT_POST, "fabricanteid", FILTER_SANITIZE_SPECIAL_CHARS);
+        $fabricanteId = filter_input(INPUT_POST, "fabricante", FILTER_SANITIZE_NUMBER_INT);
     
         $descricao = filter_input(INPUT_POST, "descricao", FILTER_SANITIZE_SPECIAL_CHARS);
         
@@ -66,7 +66,7 @@ if(isset($_POST['atualizar'])){
         <p>
             <label for="fabricanteid">Fabricante:</label>
 
-            <select name="fabricanteid" id="fabricanteid">
+            <select name="fabricante" id="fabricante">
                 <option value="fabricanteid"></option>
 
                 <?php foreach( $listadeFabricante as $fabricante){
