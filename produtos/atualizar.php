@@ -5,7 +5,35 @@ $listadeFabricante = lerFabricantes($conexao);
 
 $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 
-$produto = lerUmProduto($conexao, $id)
+$produto = lerUmProduto($conexao, $id);
+
+if(isset($_POST['atualizar'])){
+    if (isset($_POST['inserir'])) {
+        $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
+        $preco = filter_input(
+            INPUT_POST,
+            "preco",
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+    
+        $quantidade = filter_input(
+            INPUT_POST,
+            "quantidade",
+            FILTER_SANITIZE_NUMBER_INT
+        );
+    
+        //Pegaremos o value, ou seja, o valor do id do fabricante
+        $fabricanteid = filter_input(INPUT_POST, "fabricanteid", FILTER_SANITIZE_SPECIAL_CHARS);
+    
+        $descricao = filter_input(INPUT_POST, "descricao", FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        atualizarProduto(
+            $conexao, $id, $nome, $preco, $quantidade, $descricao, $fabricanteId
+        );
+        //Redireciona
+        header("location:visualizar.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
