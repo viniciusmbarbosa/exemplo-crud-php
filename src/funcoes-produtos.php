@@ -106,7 +106,7 @@ string $nome, float $preco,  int $quantidade, string $descricao,  int $fabricant
 }
 
 function excluirProduto(PDO $conexao, int $id):void {
-    $sql = "DELETE FROM produtos WHARE id = :id";
+    $sql = "DELETE FROM produtos WHERE id = :id";
     try {
         $consulta = $conexao->prepare($sql);
         $consulta->bindValue(":id", $id, PDO::PARAM_INT);
